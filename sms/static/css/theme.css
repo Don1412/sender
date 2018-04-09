@@ -2203,6 +2203,7 @@ tbody.collapse.show {
 
 .dropdown-item {
   display: block;
+  cursor: pointer;
   width: 100%;
   padding: 0.25rem 1.5rem;
   clear: both;
