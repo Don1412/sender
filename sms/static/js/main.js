@@ -4,13 +4,13 @@ function select_name_template(name)
 }
 function select_message_template(name)
 {
-    var type = $('#type').val();
     $.get({
         url: "../message_template",
+        data: {'name':name},
+        dataType: 'json',
         success: function(e)
         {
-            alert(e);
-            $('#senderName').val(e.text);
+            $('#message').val(e.text);
             $('#type').val(e.type)
         }
     });

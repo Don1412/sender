@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 class list(models.Model):
     sender_name = models.TextField()
     message = models.TextField()
@@ -20,6 +21,7 @@ class list(models.Model):
     def __str__(self):
         return self.sender_name
 
+
 class name_template(models.Model):
     name = models.CharField(max_length=20)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -27,9 +29,15 @@ class name_template(models.Model):
     def __str__(self):
         return self.name
 
+
 class message_template(models.Model):
     name = models.CharField(max_length=20)
     text = models.TextField()
+    TEXT_TYPES = (
+        ('t', 'Text'),
+        ('u', 'Unicode'),
+    )
+    type = models.CharField(max_length=1, choices=TEXT_TYPES, default='u')
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     def __str__(self):

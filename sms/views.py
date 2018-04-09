@@ -3,8 +3,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import name_template, message_template
-from django.http import JsonResponse, HttpResponse
-from django.core import serializers
+from django.http import JsonResponse
 
 from .forms import RegisterForm, LoginForm
 
@@ -63,6 +62,7 @@ class IndexView(views.View):
             return redirect(reverse('login'))
         return render(request, 'index.html', {})
 
+
 class CreateView(views.View):
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -70,13 +70,14 @@ class CreateView(views.View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        name_template_items = name_template.objects.all()
-        message_template_items = message_template.objects.all()
+        name_template_items = name_template.objects.all().filter(user=self.request.user)
+        message_template_items = message_template.objects.all().filter(user=self.request.user)
         return render(request, 'create.html', {'name_template_items':name_template_items,
                                                'message_template_items':message_template_items})
 
     def post(self, request):
         return 1
+
 
 class NameTemplateView(views.View):
     def get(self, reuqest):
@@ -85,12 +86,12 @@ class NameTemplateView(views.View):
     def post(self, request):
         print(request)
 
+
 class MessageTemplateView(views.View):
     def get(self, request):
-        data = message_template.objects.all()
-        print(data)
-        serialize = serializers.serialize('json', data)
-        return HttpResponse(serialize, content_type="application/json")
+        data = message_template.objects.get(name=request.GET.get('name'), user=self.request.user)
+        result = {'name': data.name, 'text': data.text, 'type': data.type}
+        return JsonResponse(result)
 
     def post(self, request):
         return 1
