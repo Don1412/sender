@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'SMSSender.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'user263215_sms',
-        'USERNAME': 'sms_user1',
+        'USER': 'sms_user1',
         'PASSWORD': 'sms_password',
     }
 }
