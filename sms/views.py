@@ -74,8 +74,8 @@ class CreateView(views.View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        name_template_items = NameTemplate.objects.all().filter(user=self.request.user)
-        message_template_items = MessageTemplate.objects.all().filter(user=self.request.user)
+        name_template_items = NameTemplate.objects.filter(user=self.request.user)
+        message_template_items = MessageTemplate.objects.filter(user=self.request.user)
         return render(request, 'create.html', {'name_template_items':name_template_items,
                                                'message_template_items':message_template_items})
 
@@ -86,10 +86,10 @@ class CreateView(views.View):
 class NameTemplateView(views.View):
     def get(self, request):
         try:
-            data = NameTemplate.objects.get(name=request.GET.get('name'), user=self.request.user)
-            return JsonResponse('1')
+            data = NameTemplate.objects.filter(name=request.GET.get('name'), user=self.request.user)
+            return HttpResponse('OK')
         except NameTemplate.DoesNotExist:
-            return JsonResponse('2')
+            return HttpResponse('NotExist')
 
     def post(self, request):
         print(request)
