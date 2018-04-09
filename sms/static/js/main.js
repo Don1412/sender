@@ -2,6 +2,19 @@ function select_name_template(name)
 {
     $('#senderName').val(name);
 }
+function search_name_template()
+{
+    var nameValue = $('#senderName').val();
+    $.get({
+        url: '../name_template',
+        data: {'name': nameValue},
+        dataType: 'json',
+        success: function(e)
+        {
+            alert(e);
+        }
+    });
+}
 function select_message_template(name)
 {
     $.get({

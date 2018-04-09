@@ -2,8 +2,8 @@ from django import views
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .models import name_template, message_template
-from django.http import JsonResponse
+from .models import NameTemplate, MessageTemplate
+from django.http import JsonResponse, HttpResponse
 
 from .forms import RegisterForm, LoginForm
 
@@ -56,8 +56,12 @@ class IndexView(views.View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        action = request.GET.get('action')
-        if action == 'logout' and self.request.user.is_authenticated:
+        return render(request, 'index.html', {})
+
+
+class LogoutView(views.View):
+    def get(self, request):
+        if self.request.user.is_authenticated:
             logout(request)
             return redirect(reverse('login'))
         return render(request, 'index.html', {})
@@ -70,8 +74,8 @@ class CreateView(views.View):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        name_template_items = name_template.objects.all().filter(user=self.request.user)
-        message_template_items = message_template.objects.all().filter(user=self.request.user)
+        name_template_items = NameTemplate.objects.all().filter(user=self.request.user)
+        message_template_items = MessageTemplate.objects.all().filter(user=self.request.user)
         return render(request, 'create.html', {'name_template_items':name_template_items,
                                                'message_template_items':message_template_items})
 
@@ -80,8 +84,12 @@ class CreateView(views.View):
 
 
 class NameTemplateView(views.View):
-    def get(self, reuqest):
-        return name_template.__str__()
+    def get(self, request):
+        try:
+            data = NameTemplate.objects.get(name=request.GET.get('name'), user=self.request.user)
+            return JsonResponse('1')
+        except NameTemplate.DoesNotExist:
+            return JsonResponse('2')
 
     def post(self, request):
         print(request)
@@ -89,9 +97,12 @@ class NameTemplateView(views.View):
 
 class MessageTemplateView(views.View):
     def get(self, request):
-        data = message_template.objects.get(name=request.GET.get('name'), user=self.request.user)
-        result = {'name': data.name, 'text': data.text, 'type': data.type}
-        return JsonResponse(result)
+        try:
+            data = MessageTemplate.objects.get(name=request.GET.get('name'), user=self.request.user)
+            result = {'name': data.name, 'text': data.text, 'type': data.type}
+            return JsonResponse(result)
+        except MessageTemplate.DoesNotExist:
+            return HttpResponse(MessageTemplate.DoesNotExist, content_type='application/json')
 
     def post(self, request):
         return 1

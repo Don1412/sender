@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import list, name_template, message_template
+from .models import SmsList, NameTemplate, MessageTemplate
 
-admin.site.register(list)
-admin.site.register(name_template)
-admin.site.register(message_template)
+admin.site.register(SmsList)
+admin.site.register(NameTemplate)
+admin.site.register(MessageTemplate)

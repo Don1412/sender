@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 
-class list(models.Model):
+class SmsList(models.Model):
     sender_name = models.TextField()
     message = models.TextField()
     SEVICE_LIST = (
@@ -22,7 +22,7 @@ class list(models.Model):
         return self.sender_name
 
 
-class name_template(models.Model):
+class NameTemplate(models.Model):
     name = models.CharField(max_length=20)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
@@ -30,7 +30,7 @@ class name_template(models.Model):
         return self.name
 
 
-class message_template(models.Model):
+class MessageTemplate(models.Model):
     name = models.CharField(max_length=20)
     text = models.TextField()
     TEXT_TYPES = (
