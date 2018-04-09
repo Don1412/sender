@@ -2084,6 +2084,10 @@ tbody.collapse.show {
 .dropdown {
   position: relative; }
 
+.toggle_arrow.dropdown-toggle::after {
+  display: none;
+}
+
 .dropdown-toggle::after {
   display: inline-block;
   width: 0;
@@ -2199,6 +2203,7 @@ tbody.collapse.show {
 
 .dropdown-item {
   display: block;
+  cursor: pointer;
   width: 100%;
   padding: 0.25rem 1.5rem;
   clear: both;

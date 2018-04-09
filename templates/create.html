@@ -1,0 +1,95 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load staticfiles %}
+    <script src="{% static 'js/main.js' %}"></script>
+  <div class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1><i class="fa fa-fw fa-envelope"></i>Создание рассылки
+            <br> </h1>
+          <div class="row">
+            <div class="col-md-12"></div>
+          </div>
+          <form method="POST">
+            <div class="form-group">
+                <label for="selectService">Выбор сервиса</label>
+                <select class="form-control" id="selectService" name="selectService" required="required">
+                    <option value="r">RouteSMS</option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Имя отправителя</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="dropdown show">
+                        <a class="btn toggle_arrow dropdown-toggle" role="button" id="template_name_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-2x fa-address-card"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {% if name_template_items %}
+                                {% for item in name_template_items %}
+                                    <a class="dropdown-item" onclick="select_name_template('{{ item }}')">{{ item }}</a>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <input type="text" class="form-control" id="senderName" onchange="search_name_template()" required="required" name="senderName">
+              </div>
+              <small class="text-muted form-text">Имя или номер</small>
+            </div>
+            <div class="form-group"> <label for="Textarea">Номера получателей</label>
+                <textarea class="form-control" onkeyup="count_numbers()" rows="20" id="numbers" name="numbers"></textarea>
+                <p>К отправке номеров: <span id="numbers_to_send">0</span></p>
+                <small class="text-muted form-text">Номер получателя указывается в международном формате без +. Например, 375291234567. Каждый номер вводится с новой строки.</small></div>
+            <div class="form-group"><label for="exampleInputEmail1">Тип сообщения</label>
+                <select class="form-control" required="required" id="type" name="type">
+                    <option value="u">Unicode</option>
+                    <option value="t">Text</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Сообщение</label>
+                <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                <div class="dropdown show">
+                    <a class="btn dropdown-toggle" role="button" id="template_name_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-1x fa-file-text"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {% if message_template_items %}
+                            {% for item in message_template_items %}
+                                <a class="dropdown-item" onclick="select_message_template('{{ item }}')">{{ item }}</a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check" id="periodic">
+                <input class="form-check-input" type="checkbox" id="exampleCheck1" name="periodic"><label class="form-check-label" for="exampleCheck1" id="per">Периодическая отправка</label></div><small class="text-muted form-text">Сообщения будут отправляться через заданный период времени</small></div>
+            <div><label for="exampleInputEmail1">Каждые&nbsp;</label>
+              <input type="text" id="periodic_hour" name="periodic_hour">&nbsp;<label>часов</label> </div>
+            <div class="form-group"><label for="exampleInputEmail1">Каждые&nbsp;</label>
+              <input type="text" id="periodic_minutes" name="periodic_minutes">&nbsp;<label>минут</label> <small class="text-muted form-text">Период отправки сообщений</small> </div>
+            <div class="form-group">
+              <div class="form-check" id="plan">
+                <input class="form-check-input" type="checkbox" id="exampleCheck1" name="plan"><label class="form-check-label" for="exampleCheck1">Запланированная отправка</label></div>
+            		<small class="text-muted form-text">Будет сделана одна рассылка в определенное время</small>
+            </div>
+            <div><label for="plan_date">Дата&nbsp;</label>
+              <input type="date" id="plan_date" name="plan_date">
+            </div>
+            <div><label for="plan_hour">Час&nbsp;</label>
+              <input type="number" id="plan_hour" name="plan_hour">
+            </div>
+            <div class="form-group"><label for="plan_minute">Минута&nbsp;</label>
+              <input type="number" id="plan_minute" name="plan_minute">
+            </div>
+            <button type="submit" class="btn btn-success">Начать рассылку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
