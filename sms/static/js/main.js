@@ -23,8 +23,10 @@ function select_message_template(name)
         dataType: 'json',
         success: function(e)
         {
-            $('#message').val(e.text);
-            $('#type').val(e.type)
+            var obj = jQuery.parseJSON(e);
+            alert(obj);
+            $('#message').val(obj.text);
+            $('#type').val(obj.type)
         }
     });
 }
