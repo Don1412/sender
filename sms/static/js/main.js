@@ -11,20 +11,20 @@ function search_name_template()
         dataType: 'json',
         success: function(e)
         {
-            alert(e);
+            console.log(e.template.name);
         }
     });
 }
 function select_message_template(name)
 {
+    console.log('message');
     $.get({
         url: "../message_template",
         data: {'name':name},
         dataType: 'json',
         success: function(e)
         {
-            $('#message').val(e.text);
-            $('#type').val(e.type)
+            $('#message').html(e.template.text);
         }
     });
 }

@@ -86,8 +86,10 @@ class CreateView(views.View):
 
 class NameTemplateView(views.View):
     def get(self, request):
-        templates = NameTemplate.objects.filter(name=request.GET.get('name'), user=self.request.user)
-        data = {'templates': [model_to_dict(t) for t in templates]}
+        template = NameTemplate.objects.filter(name=request.GET.get('name'), user=self.request.user).first()
+        if not template:
+            return HttpResponse('Template not found', status=404)
+        data = {'template': model_to_dict(template)}
         return JsonResponse(data)
 
     def post(self, request):
@@ -96,9 +98,11 @@ class NameTemplateView(views.View):
 
 class MessageTemplateView(views.View):
     def get(self, request):
-        templates = MessageTemplate.objects.filter(name=request.GET.get('name'), user=self.request.user)
+        template = MessageTemplate.objects.filter(name=request.GET.get('name'), user=self.request.user).first()
+        if not template:
+            return HttpResponse('Template not found', status=404)
         result = {
-            'templates': [model_to_dict(template) for template in templates]
+            'template': model_to_dict(template)
         }
         return JsonResponse(result)
 
