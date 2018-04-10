@@ -17,7 +17,6 @@ function search_name_template()
 }
 function select_message_template(name)
 {
-    console.log('message');
     $.get({
         url: "../message_template",
         data: {'name':name},
