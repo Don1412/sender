@@ -107,4 +107,9 @@ class MessageTemplateView(views.View):
         return JsonResponse(result)
 
     def post(self, request):
-        return 1
+        name_template = NameTemplate.objects.create(name=request.POST.get('name'), user=self.request.user)
+        name_template.save()
+        result = {
+            'template': model_to_dict(name_template)
+        }
+        return JsonResponse(result)

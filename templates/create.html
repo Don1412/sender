@@ -12,6 +12,7 @@
             <div class="col-md-12"></div>
           </div>
           <form method="POST">
+          {% csrf_token %}
             <div class="form-group">
                 <label for="selectService">Выбор сервиса</label>
                 <select class="form-control" id="selectService" name="selectService" required="required">
@@ -23,10 +24,10 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="dropdown show">
-                        <a class="btn toggle_arrow dropdown-toggle" role="button" id="template_name_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a  id="name_template_btn" class="btn toggle_arrow dropdown-toggle" role="button" id="template_name_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-2x fa-address-card"></i>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <div id="name_template_select" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             {% if name_template_items %}
                                 {% for item in name_template_items %}
                                     <a class="dropdown-item" onclick="select_name_template('{{ item }}')">{{ item }}</a>
@@ -53,7 +54,7 @@
                 <label for="exampleInputEmail1">Сообщение</label>
                 <textarea class="form-control" id="message" name="message" rows="3"></textarea>
                 <div class="dropdown show">
-                    <a class="btn dropdown-toggle" role="button" id="template_name_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-1x fa-file-text"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
