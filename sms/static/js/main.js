@@ -30,9 +30,8 @@ function search_name_template() {
 function add_name_template() {
     var nameValue = $('#senderName').val();
     var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-    console.log(csrftoken);
     $.post({
-        url: "../message_template/",
+        url: "../name_template/",
         dataType: 'json',
         beforeSend: function(xhr, settings) {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -42,6 +41,22 @@ function add_name_template() {
         {
             search_name_template();
             $('#name_template_select').append('<a class="dropdown-item" onclick="select_name_template(\''+nameValue+'\')">'+nameValue+'</a>');
+        }
+    });
+}
+function delete_name_template(name) {
+    event.stopPropagation();
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    $.post({
+        url: "../delete_name_template/",
+        dataType: 'json',
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        },
+        data: {'name': name},
+        success: function(e)
+        {
+            $('#name_template_'+name).remove();
         }
     });
 }

@@ -93,7 +93,21 @@ class NameTemplateView(views.View):
         return JsonResponse(data)
 
     def post(self, request):
-        print(request)
+        name_template = NameTemplate.objects.create(name=request.POST.get('name'), user=self.request.user)
+        name_template.save()
+        result = {
+            'template': model_to_dict(name_template)
+        }
+        return JsonResponse(result)
+
+
+class DeleteNameTemplateView(views.View):
+    def get(self, request):
+        return HttpResponse('ok')
+
+    def post(self, request):
+        NameTemplate.objects.filter(name=request.POST.get('name'), user=self.request.user).delete()
+        return HttpResponse('1')
 
 
 class MessageTemplateView(views.View):

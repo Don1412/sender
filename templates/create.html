@@ -30,7 +30,7 @@
                         <div id="name_template_select" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             {% if name_template_items %}
                                 {% for item in name_template_items %}
-                                    <a class="dropdown-item" onclick="select_name_template('{{ item }}')">{{ item }}</a>
+                                    <a id="name_template_{{ item }}" class="dropdown-item" onclick="select_name_template('{{ item }}')">{{ item }}<i class="fa-btn fa fa-1x fa-trash" onclick="delete_name_template('{{ item }}')"></i></a>
                                 {% endfor %}
                             {% endif %}
                         </div>

@@ -6183,3 +6183,9 @@ html, body {
 .general-text {
   font-size: 25px;
   font-weight: bold; }
+
+.fa-btn {
+  position: absolute;
+  right:-0.1em;
+  padding-right: 1em;
+}
