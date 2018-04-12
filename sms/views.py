@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import NameTemplate, MessageTemplate
 from django.http import JsonResponse, HttpResponse
-from SMSSender.tasks import add
+from SMSSender.tasks import add, hi
 import datetime
 
 from .forms import RegisterForm, LoginForm
@@ -80,6 +80,7 @@ class CreateView(views.View):
         name_template_items = NameTemplate.objects.filter(user=self.request.user)
         message_template_items = MessageTemplate.objects.filter(user=self.request.user)
         add.delay(2, 2)
+        hi.delay()
         return render(request, 'create.html', {'name_template_items': name_template_items,
                                                'message_template_items': message_template_items})
 

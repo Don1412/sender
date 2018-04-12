@@ -16,3 +16,9 @@ def mul(x, y):
 @app.task
 def xsum(numbers):
     return sum(numbers)
+
+
+@app.task
+def hi():
+    print('hi pidr')
+    return 1
