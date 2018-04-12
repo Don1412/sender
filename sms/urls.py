@@ -9,5 +9,7 @@ urlpatterns = [
     path('create/', views.CreateView.as_view(), name='create'),
     path('name_template/', views.NameTemplateView.as_view(), name='nameTemplate'),
     path('delete_name_template/', views.DeleteNameTemplateView.as_view(), name='deleteNameTemplate'),
-    path('message_template/', views.MessageTemplateView.as_view(), name='messageTemplate')
+    path('message_template/', views.MessageTemplateView.as_view(), name='messageTemplate'),
+    path('templates/', views.TemplatesView.as_view(), name='templates'),
+    path('create_send/', views.CreateSendView.as_view(), name='createSend')
 ]

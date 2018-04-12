@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-md-12"></div>
           </div>
-          <form method="POST">
+          <form method="POST" action="../create_send/">
           {% csrf_token %}
             <div class="form-group">
                 <label for="selectService">Выбор сервиса</label>
@@ -60,7 +60,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         {% if message_template_items %}
                             {% for item in message_template_items %}
-                                <a class="dropdown-item" onclick="select_message_template('{{ item }}')">{{ item }}</a>
+                                <a id="message_template_{{ item }}" class="dropdown-item" onclick="select_message_template('{{ item }}')">{{ item }}<i class="fa-btn fa fa-1x fa-trash" onclick="delete_message_template('{{ item }}')"></i></a>
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -75,7 +75,7 @@
               <input type="text" id="periodic_minutes" name="periodic_minutes">&nbsp;<label>минут</label> <small class="text-muted form-text">Период отправки сообщений</small> </div>
             <div class="form-group">
               <div class="form-check" id="plan">
-                <input class="form-check-input" type="checkbox" id="exampleCheck1" name="plan"><label class="form-check-label" for="exampleCheck1">Запланированная отправка</label></div>
+                <input class="form-check-input" type="checkbox" id="planned" name="planned"><label class="form-check-label" for="exampleCheck1">Запланированная отправка</label></div>
             		<small class="text-muted form-text">Будет сделана одна рассылка в определенное время</small>
             </div>
             <div><label for="plan_date">Дата&nbsp;</label>

@@ -40,7 +40,7 @@ function add_name_template() {
         success: function(e)
         {
             search_name_template();
-            $('#name_template_select').append('<a class="dropdown-item" onclick="select_name_template(\''+nameValue+'\')">'+nameValue+'</a>');
+            $('#name_template_select').append('<a id="name_template_'+nameValue+'" class="dropdown-item" onclick="select_name_template(\''+nameValue+'\')">'+nameValue+'</a>');
         }
     });
 }
@@ -68,6 +68,38 @@ function select_message_template(name) {
         success: function(e)
         {
             $('#message').html(e.template.text);
+        }
+    });
+}
+function add_message_template() {
+    var nameValue = $('#senderName').val();
+    var text = $('#message').val();
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    $.post({
+        url: "../message_template/",
+        dataType: 'json',
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        },
+        data: {'name': nameValue, 'text': text},
+        success: function(e)
+        {
+            $('#message_template_select').append('<a id="message_template_'+nameValue+'" class="dropdown-item" onclick="select_message_template(\''+nameValue+'\')">'+nameValue+'</a>');
+        }
+    });
+}
+function delete_message_template(name) {
+    event.stopPropagation();
+    $.post({
+        url: "../delete_message_template/",
+        dataType: 'json',
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        },
+        data: {'name': name},
+        success: function(e)
+        {
+            $('#message_template_'+name).remove();
         }
     });
 }
