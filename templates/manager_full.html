@@ -1,0 +1,29 @@
+{% extends 'manager.html' %}
+{% block back %}<a class="col-auto" href="/manager/"><i class="fa fa-2x fa-arrow-circle-left"></i></a>{% endblock %}
+{% block manager %}
+        <thead onselectstart="return false" class="thead-dark">
+          <tr>
+            <th>
+              <input type="checkbox" value="on"> </th>
+            <th data-sortable="true">№</th>
+            <th data-sortable="true">Номер</th>
+            <th data-sortable="true">Сообщение</th>
+            <th data-sortable="true">Дата отправления</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% if table_items %}
+                {% for item in table_items %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" value="on">
+                        </td>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.number }}</td>
+                        <td>{{ item.message }}</td>
+                        <td>{{ item.date_send }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+{% endblock%}

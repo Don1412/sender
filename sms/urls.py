@@ -10,6 +10,9 @@ urlpatterns = [
     path('name_template/', views.NameTemplateView.as_view(), name='nameTemplate'),
     path('delete_name_template/', views.DeleteNameTemplateView.as_view(), name='deleteNameTemplate'),
     path('message_template/', views.MessageTemplateView.as_view(), name='messageTemplate'),
+    path('delete_message_template/', views.DeleteMessageTemplateView.as_view(), name='deleteMessageTemplate'),
     path('templates/', views.TemplatesView.as_view(), name='templates'),
-    path('create_send/', views.CreateSendView.as_view(), name='createSend')
+    path('create_send/', views.CreateSendView.as_view(), name='createSend'),
+    path('manager/', views.ManagerView.as_view(), name='manager'),
+    path('manager/<int:id>/', views.ManagerView.as_view(), name='manager')
 ]

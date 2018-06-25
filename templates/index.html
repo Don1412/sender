@@ -15,16 +15,18 @@
             <a class="nav-link" href="../create/"><i class="fa d-inline fa-lg fa-plus"></i> Создать рассылку</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Менеджер</a>
+            <a class="nav-link" href="../manager/"><i class="fa d-inline fa-lg fa-bookmark-o"></i> Менеджер</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-envelope-o"></i> Отчёт</a>
         </li>
-        <li class="nav-item">
+        <!--<li class="nav-item">
             <a class="nav-link" href="../templates/"><i class="fa d-inline fa-lg fa-file-text"></i> Шаблоны</a>
-        </li>
+        </li>-->
     </ul>
 {% endblock %}
 {% block content %}
-
+    <div class="container">
+        <p>Здравствуйте, {{ request.user.username }}!</p>
+    </div>
 {% endblock %}

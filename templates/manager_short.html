@@ -1,0 +1,32 @@
+{% extends 'manager.html' %}
+{% block manager %}
+        <thead onselectstart="return false" class="thead-dark">
+          <tr>
+            <th>
+              <input type="checkbox" value="on"> </th>
+            <th data-sortable="true">№</th>
+            <th data-sortable="true">Отправитель</th>
+            <th data-sortable="true">Сообщение</th>
+            <th data-sortable="true">Сервис</th>
+            <th data-sortable="true">Тип</th>
+            <th data-sortable="true">Дата создания</th>
+          </tr>
+        </thead>
+        <tbody id="smsList">
+            {% if table_items %}
+                {% for item in table_items %}
+                    <tr data-id="{{ item.id }}">
+                        <td>
+                            <input type="checkbox" value="on">
+                        </td>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.sender_name }}</td>
+                        <td>{{ item.message }}</td>
+                        <td>{{ item.get_service_display }}</td>
+                        <td>{{ item.get_type_text_display }}</td>
+                        <td>{{ item.date_create }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+{% endblock%}

@@ -17,7 +17,21 @@ class SmsList(models.Model):
     type_text = models.CharField(max_length=1, choices=TEXT_TYPES, default='u', help_text='Format text')
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     date_create = models.DateTimeField(default=timezone.now)
-    sms_key = models.CharField(max_length=100, unique=True, default='')
+    periodic_hour = models.IntegerField(default=0)
+    periodic_minutes = models.IntegerField(default=0)
+    planned_date = models.DateField(default=0)
+    planned_hour = models.IntegerField(default=0)
+    planned_minutes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.sender_name
+
+
+class SmsTable(models.Model):
+    number = models.TextField()
+    message = models.TextField()
+    smsList = models.ForeignKey('sms.SmsList', on_delete=models.CASCADE)
+    date_send = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.sender_name
